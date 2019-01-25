@@ -1,0 +1,22 @@
+{
+    "name": "izzle/model",
+    "description": "Simple model lib",
+    "keywords": ["model", "lib"],
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Daniel Böhmer",
+            "email": "daniel@izzle.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Izzle\\Model\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.1",
+        "ext-json": "*",
+        "izzle/support": "^0.1.0"
+    }
+}
