@@ -180,6 +180,7 @@ class PropertyInfo
     public function getter(): string
     {
         $prefix = $this->type === 'bool' ? 'is' : 'get';
+        
         return \sprintf('%s%s', $prefix, \ucfirst(Str::camel($this->getName())));
     }
     
