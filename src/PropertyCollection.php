@@ -1,12 +1,21 @@
 <?php
 namespace Izzle\Model;
 
-class PropertyCollection
+class PropertyCollection implements \JsonSerializable
 {
     /**
      * @var PropertyInfo[]
      */
     private $container = [];
+    
+    /**
+     * PropertyCollection constructor.
+     * @param array $properties
+     */
+    public function __construct(array $properties = [])
+    {
+        $this->setProperties($properties);
+    }
     
     /**
      * @param PropertyInfo $property
@@ -55,6 +64,7 @@ class PropertyCollection
      */
     public function setProperties(array $properties): PropertyCollection
     {
+        $this->container = [];
         foreach ($properties as $property) {
             if (!($property instanceof PropertyInfo)) {
                 throw new \InvalidArgumentException('Array must contain only PropertyInfo objects');
@@ -90,6 +100,14 @@ class PropertyCollection
     public function count(): int
     {
         return count($this->container);
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
     
     /**
