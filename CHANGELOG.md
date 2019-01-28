@@ -1,3 +1,7 @@
+0.1.1
+-----
+- Added Unit Tests and new PropertyCollection Array Constructor
+
 0.1.0
 -----
 - Push to release state

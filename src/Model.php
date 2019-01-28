@@ -15,7 +15,7 @@ abstract class Model implements \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        if (!\is_null($data)) {
+        if ($data !== null) {
             foreach ($this->properties()->toArray() as $property) {
                 $name = $property->getName();
                 
@@ -44,7 +44,7 @@ abstract class Model implements \JsonSerializable
      */
     public function properties(): PropertyCollection
     {
-        if (\is_null($this->propertyCollection)) {
+        if ($this->propertyCollection === null) {
             $this->propertyCollection = $this->loadProperties();
         }
         
@@ -68,7 +68,7 @@ abstract class Model implements \JsonSerializable
     public function cast($value, PropertyInfo $property)
     {
         if ($property->isNavigation()) {
-            if ($value instanceof Model) {
+            if ($value instanceof self) {
                 return $value;
             }
             
@@ -102,7 +102,7 @@ abstract class Model implements \JsonSerializable
         
         if (!$property->isNavigation() && $property->isArray() && \is_array($value)) {
             foreach ($value as &$v) {
-                if (!($v instanceof Model)) {
+                if (!($v instanceof self)) {
                     $v = $cast($v, $property);
                 }
             }
@@ -149,7 +149,7 @@ abstract class Model implements \JsonSerializable
      * @return void
      * @throws \InvalidArgumentException
      */
-    protected function checkDate(\DateTime $date)
+    protected function checkDate(\DateTime $date): void
     {
         if ($date->getTimezone()->getName() !== 'UTC') {
             throw new \InvalidArgumentException('Timezone must be UTC');

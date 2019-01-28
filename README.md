@@ -35,7 +35,7 @@ Adding property informations to your new entity class
      */
     protected function loadProperties(): PropertyCollection
     {
-        return (new PropertyCollection())->setProperties([
+        return new PropertyCollection([
             new PropertyInfo('id', 'int', 0),
             new PropertyInfo('name', 'string'),
             new PropertyInfo('i18ns', BookI18n::class, [], true, true),
