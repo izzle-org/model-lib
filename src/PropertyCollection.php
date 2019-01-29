@@ -1,7 +1,7 @@
 <?php
 namespace Izzle\Model;
 
-class PropertyCollection implements \JsonSerializable
+class PropertyCollection implements \JsonSerializable, \Countable
 {
     /**
      * @var PropertyInfo[]
@@ -91,7 +91,7 @@ class PropertyCollection implements \JsonSerializable
      */
     public function getProperty(string $name): ?PropertyInfo
     {
-        return isset($this->container[$name]) ? $this->container[$name] : null;
+        return $this->container[$name] ?? null;
     }
     
     /**

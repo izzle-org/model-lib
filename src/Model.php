@@ -28,7 +28,7 @@ abstract class Model implements \JsonSerializable
                     }
                 }
                 
-                if ($property->isArray() && $property->isNavigation() && \is_array($data[$name])) {
+                if (\is_array($data[$name] && $property->isArray() && $property->isNavigation())) {
                     foreach ($data[$name] as $key => $value) {
                         $this->{$property->adder()}($this->cast($value, $property), $key);
                     }
@@ -92,15 +92,17 @@ abstract class Model implements \JsonSerializable
                 case 'double':
                     return (double) $value;
                 case 'string':
-                    return \utf8_encode((string) $value);
+                    return (string) $value;
                 case \DateTime::class:
-                    return \is_string($value) ? new \DateTime($value, new \DateTimeZone('UTC')) : $value;
+                    return \is_string($value) ? (new \DateTime($value))->setTimezone(new \DateTimeZone('UTC')) : $value;
                 case 'mixed':
                     return $value;
             }
+            
+            return $value;
         };
         
-        if (!$property->isNavigation() && $property->isArray() && \is_array($value)) {
+        if (\is_array($value) && !$property->isNavigation() && $property->isArray()) {
             foreach ($value as &$v) {
                 if (!($v instanceof self)) {
                     $v = $cast($v, $property);
@@ -151,8 +153,8 @@ abstract class Model implements \JsonSerializable
      */
     protected function checkDate(\DateTime $date): void
     {
-        if ($date->getTimezone()->getName() !== 'UTC') {
-            throw new \InvalidArgumentException('Timezone must be UTC');
+        if ($date->getOffset() === 0) {
+            throw new \InvalidArgumentException('Timezone must be UTC+0');
         }
     }
 }
