@@ -1,6 +1,12 @@
+0.1.2
+-----
+- Fixed date check
+- Removed utf8 encoding enforcement while string casting
+
 0.1.1
 -----
-- Added Unit Tests and new PropertyCollection Array Constructor
+- Added Unit Tests 
+- Added new PropertyCollection Array Constructor
 
 0.1.0
 -----

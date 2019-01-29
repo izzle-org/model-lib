@@ -2,7 +2,7 @@
 namespace Izzle\Tests;
 
 use Izzle\Model\Model;
-use Izzle\Model\PropertyCollection;
+use Izzle\Model\PropertyInfo;
 use PHPUnit\Framework\TestCase;
 
 class ModelTest extends TestCase
@@ -45,5 +45,37 @@ class ModelTest extends TestCase
         
         $this->assertNotEmpty($property);
         $this->assertEquals('name', $property->getName());
+    }
+    
+    public function testCanBeConvertedToArray(): void
+    {
+        $this->assertIsArray(
+            $this->book->toArray()
+        );
+    }
+    
+    public function testImplementsJson(): void
+    {
+        $this->assertInstanceOf(
+            \JsonSerializable::class,
+            $this->book
+        );
+    }
+    
+    public function testCanCastValue(): void
+    {
+        $this->assertEquals(4, $this->book->cast('4', new PropertyInfo('foo', 'int', 0)));
+        $this->assertEquals(
+            new \DateTime('2019-01-29T07:57:47.664+00:00'),
+            $this->book->cast('2019-01-29T07:57:47.664+00:00', new PropertyInfo('createdAt', \DateTime::class, null))
+        );
+    
+        $this->assertEquals(
+            new \DateTime('2019-01-29T07:57:47.664+00:00'),
+            $this->book->cast(new \DateTime(
+                '2019-01-29T07:57:47.664',
+                new \DateTimeZone('UTC')
+            ), new PropertyInfo('createdAt', \DateTime::class, null))
+        );
     }
 }
