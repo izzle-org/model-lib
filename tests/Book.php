@@ -27,6 +27,16 @@ class Book extends Model
     protected $stockLevel = 0;
     
     /**
+     * @var Page[]
+     */
+    protected $pages = [];
+    
+    /**
+     * @var Page
+     */
+    protected $currentPage;
+    
+    /**
      * @return int
      */
     public function getId(): int
@@ -84,6 +94,60 @@ class Book extends Model
     }
     
     /**
+     * @return Page[]
+     */
+    public function getPages(): array
+    {
+        return $this->pages;
+    }
+    
+    /**
+     * @param Page[] $pages
+     * @return Book
+     */
+    public function setPages(array $pages): Book
+    {
+        $this->pages = $pages;
+        
+        return $this;
+    }
+    
+    /**
+     * @param Page $page
+     * @param string|null $key
+     * @return Book
+     */
+    public function addPage(Page $page, string $key = null): Book
+    {
+        if ($key === null) {
+            $this->pages[] = $page;
+        } else {
+            $this->pages[$key] = $page;
+        }
+        
+        return $this;
+    }
+    
+    /**
+     * @return Page|null
+     */
+    public function getCurrentPage(): ?Page
+    {
+        return $this->currentPage;
+    }
+    
+    /**
+     * @param Page $currentPage
+     * @return Book
+     */
+    public function setCurrentPage(Page $currentPage): Book
+    {
+        $this->currentPage = $currentPage;
+        
+        return $this;
+    }
+    
+    /**
      * @return PropertyCollection
      */
     protected function loadProperties(): PropertyCollection
@@ -91,7 +155,9 @@ class Book extends Model
         return new PropertyCollection([
             new PropertyInfo('name'),
             new PropertyInfo('id', 'int', 0),
-            new PropertyInfo('stockLevel', 'int', 0)
+            new PropertyInfo('stockLevel', 'int', 0),
+            new PropertyInfo('pages', Page::class, [], true, true),
+            new PropertyInfo('currentPage', Page::class, null, true)
         ]);
     }
 }

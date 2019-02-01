@@ -1,3 +1,7 @@
+0.1.4
+-----
+- Fixed Model serialization
+
 0.1.3
 -----
 - Fixed date check
