@@ -1,3 +1,7 @@
+0.1.3
+-----
+- Fixed date check
+
 0.1.2
 -----
 - Fixed date check
