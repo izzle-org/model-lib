@@ -27,8 +27,8 @@ abstract class Model implements \JsonSerializable
                         continue;
                     }
                 }
-                
-                if (\is_array($data[$name] && $property->isArray() && $property->isNavigation())) {
+    
+                if (\is_array($data[$name]) && $property->isArray() && $property->isNavigation()) {
                     foreach ($data[$name] as $key => $value) {
                         $this->{$property->adder()}($this->cast($value, $property), $key);
                     }

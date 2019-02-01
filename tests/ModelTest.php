@@ -19,7 +19,21 @@ class ModelTest extends TestCase
         $this->book = new Book([
             'id' => 3,
             'name' => 'Moby Dick',
-            'stock_level' => '4'
+            'stock_level' => '4',
+            'pages' => [
+                [
+                    'page' => 1,
+                    'chapter' => 'intro'
+                ],
+                [
+                    'page' => 2,
+                    'chapter' => 'greetings'
+                ]
+            ],
+            'currentPage' => [
+                'page' => 1,
+                'chapter' => 'intro'
+            ]
         ]);
     }
     
@@ -32,11 +46,13 @@ class ModelTest extends TestCase
         
         $this->assertEquals($this->book->getName(), 'Moby Dick');
         $this->assertEquals($this->book->getStockLevel(), 4);
+        $this->assertIsArray($this->book->getPages());
+        $this->assertCount(2, $this->book->getPages());
     }
     
     public function testCanGetProperties(): void
     {
-        $this->assertCount(3, $this->book->properties()->toArray());
+        $this->assertCount(5, $this->book->properties()->toArray());
     }
     
     public function testCanGetPropertyByName(): void

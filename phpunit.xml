@@ -15,7 +15,10 @@
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./app</directory>
+            <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
+    <logging>
+        <log type="coverage-html" target="./report" lowUpperBound="35" highLowerBound="70"/>
+    </logging>
 </phpunit>
