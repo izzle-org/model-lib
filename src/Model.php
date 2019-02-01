@@ -153,7 +153,7 @@ abstract class Model implements \JsonSerializable
      */
     protected function checkDate(\DateTime $date): void
     {
-        if ($date->getOffset() === 0) {
+        if ($date->getOffset() !== 0) {
             throw new \InvalidArgumentException('Timezone must be UTC+0');
         }
     }
