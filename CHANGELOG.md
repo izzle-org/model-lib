@@ -1,3 +1,7 @@
+0.1.5
+-----
+- Added preg match to remove 'isIsFoobar' getter
+
 0.1.4
 -----
 - Fixed Model serialization

@@ -180,8 +180,9 @@ class PropertyInfo
     public function getter(): string
     {
         $prefix = $this->type === 'bool' ? 'is' : 'get';
+        $name = preg_replace('/^is(.+)$/is','$1', $this->getName()); // Removing leading 'is' in name
         
-        return \sprintf('%s%s', $prefix, \ucfirst(Str::camel($this->getName())));
+        return \sprintf('%s%s', $prefix, \ucfirst(Str::camel($name)));
     }
     
     /**
