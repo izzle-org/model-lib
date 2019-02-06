@@ -1,3 +1,7 @@
+0.2.0
+-----
+- Fixed preg match and getter logic
+
 0.1.5
 -----
 - Added preg match to remove 'isIsFoobar' getter
