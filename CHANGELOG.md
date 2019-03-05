@@ -1,3 +1,7 @@
+0.3.1
+-----
+- Minor serializer fix
+
 0.3.0
 -----
 - Renamed snake case array key disabler
