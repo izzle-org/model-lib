@@ -1,3 +1,8 @@
+0.2.1
+-----
+- Added additional getter / setter logic tests
+- Added snake case array key disabler
+
 0.2.0
 -----
 - Fixed preg match and getter logic
