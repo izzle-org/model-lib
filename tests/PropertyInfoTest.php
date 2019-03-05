@@ -25,6 +25,7 @@ class PropertyInfoTest extends TestCase
         $this->assertEquals((new PropertyInfo('valid', 'bool', false))->getter(), 'isValid');
         $this->assertEquals((new PropertyInfo('isPartMaster', 'bool', false))->getter(), 'isPartMaster');
         $this->assertEquals((new PropertyInfo('isIsbn', 'bool', false))->getter(), 'isIsbn');
+        $this->assertEquals((new PropertyInfo('isbn', 'string', ''))->getter(), 'getIsbn');
     }
     
     public function testCanGetSetterMethod(): void
@@ -33,6 +34,7 @@ class PropertyInfoTest extends TestCase
         $this->assertEquals((new PropertyInfo('valid', 'bool', false))->setter(), 'setValid');
         $this->assertEquals((new PropertyInfo('isPartMaster', 'bool', false))->setter(), 'setIsPartMaster');
         $this->assertEquals((new PropertyInfo('isIsbn', 'bool', false))->setter(), 'setIsIsbn');
+        $this->assertEquals((new PropertyInfo('isbn', 'string', ''))->setter(), 'setIsbn');
     }
     
     public function testCanGetAdderMethod(): void

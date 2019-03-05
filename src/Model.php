@@ -11,6 +11,11 @@ abstract class Model implements \JsonSerializable
     private $propertyCollection;
     
     /**
+     * @var bool
+     */
+    public static $useSnakeCaseKeys = true;
+    
+    /**
      * @param array|null $data
      */
     public function __construct(array $data = null)
@@ -20,7 +25,7 @@ abstract class Model implements \JsonSerializable
                 $name = $property->getName();
                 
                 /** @var PropertyInfo $property */
-                if (!isset($data[$name])) {
+                if (!isset($data[$name]) && self::$useSnakeCaseKeys) {
                     $name = Str::snake($property->getName());
                     
                     if (!isset($data[$name])) {
@@ -140,7 +145,9 @@ abstract class Model implements \JsonSerializable
                 continue;
             }
             
-            $data[Str::snake($property->getName())] = $this->{$property->getter()}();
+            $key = self::$useSnakeCaseKeys ? Str::snake($property->getName()) : $property->getName();
+            
+            $data[$key] = $this->{$property->getter()}();
         }
         
         return $data;
