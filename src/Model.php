@@ -25,7 +25,7 @@ abstract class Model implements \JsonSerializable
                 $name = $property->getName();
                 
                 /** @var PropertyInfo $property */
-                if (!isset($data[$name]) && self::$serializeWithSnakeKeys) {
+                if (!isset($data[$name])) {
                     $name = Str::snake($property->getName());
                     
                     if (!isset($data[$name])) {
