@@ -70,11 +70,35 @@ class ModelTest extends TestCase
         $this->assertIsArray(
             $this->book->toArray()
         );
+        
+        $data = [
+            'id' => 3,
+            'name' => 'Moby Dick',
+            'stock_level' => 4,
+            'pages' => [
+                [
+                    'page' => 1,
+                    'chapter' => 'intro'
+                ],
+                [
+                    'page' => 2,
+                    'chapter' => 'greetings'
+                ]
+            ],
+            'current_page' => [
+                'page' => 1,
+                'chapter' => 'intro'
+            ]
+        ];
+        
+        foreach ($data as $key => $value) {
+            $this->assertArrayHasKey($key, $this->book->toArray());
+        }
     }
     
     public function testSnakeCaseKeysCanBeDisabled(): void
     {
-        Model::$useSnakeCaseKeys = false;
+        Model::$serializeWithSnakeKeys = false;
         $data = $this->book->toArray();
         $this->assertArrayHasKey('stockLevel', $data);
         $this->assertArrayNotHasKey('stock_level', $data);
@@ -82,7 +106,7 @@ class ModelTest extends TestCase
         $this->assertArrayHasKey('currentPage', $data);
         $this->assertArrayNotHasKey('current_page', $data);
         
-        Model::$useSnakeCaseKeys = true;
+        Model::$serializeWithSnakeKeys = true;
     }
     
     public function testImplementsJson(): void

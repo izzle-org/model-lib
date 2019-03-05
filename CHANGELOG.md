@@ -1,3 +1,7 @@
+0.3.0
+-----
+- Renamed snake case array key disabler
+
 0.2.1
 -----
 - Added additional getter / setter logic tests
