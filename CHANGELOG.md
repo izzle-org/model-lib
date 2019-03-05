@@ -1,4 +1,4 @@
-0.2.1 (unreleased)
+0.2.1
 -----
 - Added additional getter / setter logic tests
 - Added snake case array key disabler
