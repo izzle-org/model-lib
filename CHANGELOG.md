@@ -1,3 +1,7 @@
+0.4.0
+-----
+- Added DateTime serialization format
+
 0.3.1
 -----
 - Minor serializer fix

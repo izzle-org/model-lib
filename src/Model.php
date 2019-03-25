@@ -16,6 +16,11 @@ abstract class Model implements \JsonSerializable
     public static $serializeWithSnakeKeys = true;
     
     /**
+     * @var string - Can be set to null, to serialize \DateTime to object
+     */
+    public static $serializedDateTimeFormat = \DateTime::ATOM;
+    
+    /**
      * @param array|null $data
      */
     public function __construct(array $data = null)
@@ -149,7 +154,14 @@ abstract class Model implements \JsonSerializable
                 Str::snake($property->getName()) :
                 $property->getName();
             
-            $data[$key] = $this->{$property->getter()}();
+            // DateTime Format
+            if (self::$serializedDateTimeFormat !== null && $property->getType() === \DateTime::class) {
+                /** @var \DateTime $dateTime */
+                $dateTime = $this->{$property->getter()}();
+                $data[$key] = $dateTime ? $dateTime->format(self::$serializedDateTimeFormat) : null;
+            } else {
+                $data[$key] = $this->{$property->getter()}();
+            }
         }
         
         return $data;

@@ -34,7 +34,8 @@ class ModelTest extends TestCase
                 'currentPage' => [
                     'page' => 1,
                     'chapter' => 'intro'
-                ]
+                ],
+                'createdAt' => '2019-03-20T08:30:31+00:00'
             ]
         );
     }
@@ -54,7 +55,7 @@ class ModelTest extends TestCase
     
     public function testCanGetProperties(): void
     {
-        $this->assertCount(5, $this->book->properties()->toArray());
+        $this->assertCount(6, $this->book->properties()->toArray());
     }
     
     public function testCanGetPropertyByName(): void
@@ -88,7 +89,8 @@ class ModelTest extends TestCase
             'current_page' => [
                 'page' => 1,
                 'chapter' => 'intro'
-            ]
+            ],
+            'created_at' => '2019-03-20T08:30:31+00:00'
         ];
         
         foreach ($data as $key => $value) {
@@ -105,8 +107,16 @@ class ModelTest extends TestCase
         $this->assertArrayHasKey('pages', $data);
         $this->assertArrayHasKey('currentPage', $data);
         $this->assertArrayNotHasKey('current_page', $data);
+        $this->assertArrayNotHasKey('created_at', $data);
         
         Model::$serializeWithSnakeKeys = true;
+    }
+    
+    public function testCanBeSerializedWithDateTimeFormats(): void
+    {
+        $json = json_encode($this->book);
+        $data = json_decode($json, true);
+        $this->assertEquals('2019-03-20T08:30:31+00:00', $data['created_at']);
     }
     
     public function testImplementsJson(): void

@@ -37,6 +37,11 @@ class Book extends Model
     protected $currentPage;
     
     /**
+     * @var \DateTime
+     */
+    protected $createdAt;
+    
+    /**
      * @return int
      */
     public function getId(): int
@@ -148,6 +153,35 @@ class Book extends Model
     }
     
     /**
+     * @return \DateTime|null
+     */
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
+    }
+    
+    /**
+     * @param \DateTime|string|null $createdAt
+     * @return Book
+     * @throws \Exception
+     */
+    public function setCreatedAt(?\DateTime $createdAt): Book
+    {
+        if ($createdAt === null) {
+            return $this;
+        }
+    
+        if (\is_string($createdAt)) {
+            $createdAt = (new \DateTime($createdAt))->setTimezone(new \DateTimeZone('UTC'));
+        }
+    
+        $this->checkDate($createdAt);
+        $this->createdAt = $createdAt;
+        
+        return $this;
+    }
+    
+    /**
      * @return PropertyCollection
      */
     protected function loadProperties(): PropertyCollection
@@ -157,7 +191,8 @@ class Book extends Model
             new PropertyInfo('id', 'int', 0),
             new PropertyInfo('stockLevel', 'int', 0),
             new PropertyInfo('pages', Page::class, [], true, true),
-            new PropertyInfo('currentPage', Page::class, null, true)
+            new PropertyInfo('currentPage', Page::class, null, true),
+            new PropertyInfo('createdAt', \DateTime::class, null)
         ]);
     }
 }
