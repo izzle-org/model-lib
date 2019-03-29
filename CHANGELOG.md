@@ -1,3 +1,7 @@
+0.4.2
+-----
+- Added __toString method to model class
+
 0.4.1
 -----
 - Added Serializable interface to model class

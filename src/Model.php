@@ -170,6 +170,21 @@ abstract class Model implements \JsonSerializable, \Serializable
     }
     
     /**
+     * @return string
+     * @throws \JsonException
+     */
+    public function __toString()
+    {
+        /** @var string $str */
+        $str = json_encode($this);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new \JsonException(json_last_error_msg(). json_last_error());
+        }
+        
+        return $str;
+    }
+    
+    /**
      * @param array|null $data
      */
     protected function loadData(array $data = null)
