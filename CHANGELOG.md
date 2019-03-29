@@ -1,3 +1,7 @@
+0.4.1
+-----
+- Added Serializable interface to model class
+
 0.4.0
 -----
 - Added DateTime serialization format

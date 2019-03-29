@@ -1,0 +1,20 @@
+{
+    "name": "Moby Dick",
+    "id": 3,
+    "stock_level": 4,
+    "pages": [
+        {
+            "page": 1,
+            "chapter": "intro"
+        },
+        {
+            "page": 2,
+            "chapter": "greetings"
+        }
+    ],
+    "current_page": {
+        "page": 1,
+        "chapter": "intro"
+    },
+    "created_at": "2019-03-20T08:30:31+00:00"
+}
