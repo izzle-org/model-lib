@@ -1,9 +1,10 @@
 <?php
 namespace Izzle\Model;
 
+use Izzle\Model\Exceptions\UnserializeException;
 use Izzle\Support\Str;
 
-abstract class Model implements \JsonSerializable
+abstract class Model implements \JsonSerializable, \Serializable
 {
     /**
      * @var PropertyCollection
@@ -25,28 +26,7 @@ abstract class Model implements \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        if ($data !== null) {
-            foreach ($this->properties()->toArray() as $property) {
-                $name = $property->getName();
-                
-                /** @var PropertyInfo $property */
-                if (!isset($data[$name])) {
-                    $name = Str::snake($property->getName());
-                    
-                    if (!isset($data[$name])) {
-                        continue;
-                    }
-                }
-    
-                if (\is_array($data[$name]) && $property->isArray() && $property->isNavigation()) {
-                    foreach ($data[$name] as $key => $value) {
-                        $this->{$property->adder()}($this->cast($value, $property), $key);
-                    }
-                } else {
-                    $this->{$property->setter()}($this->cast($data[$name], $property));
-                }
-            }
-        }
+        $this->loadData($data);
     }
     
     /**
@@ -139,6 +119,28 @@ abstract class Model implements \JsonSerializable
     }
     
     /**
+     * @inheritDoc
+     */
+    public function serialize()
+    {
+        return serialize($this->toArray());
+    }
+    
+    /**
+     * @param string $serialized
+     * @throws UnserializeException
+     */
+    public function unserialize($serialized)
+    {
+        $data = unserialize($serialized, [true]);
+        if ($data === false) {
+            throw new UnserializeException(sprintf('Could not unserialize data from %s', get_class($this)));
+        }
+        
+        $this->loadData($data);
+    }
+    
+    /**
      * @return array
      */
     public function toArray(): array
@@ -165,6 +167,37 @@ abstract class Model implements \JsonSerializable
         }
         
         return $data;
+    }
+    
+    /**
+     * @param array|null $data
+     */
+    protected function loadData(array $data = null)
+    {
+        if ($data === null || empty($data)) {
+            return;
+        }
+        
+        foreach ($this->properties()->toArray() as $property) {
+            $name = $property->getName();
+        
+            /** @var PropertyInfo $property */
+            if (!isset($data[$name])) {
+                $name = Str::snake($property->getName());
+            
+                if (!isset($data[$name])) {
+                    continue;
+                }
+            }
+        
+            if (\is_array($data[$name]) && $property->isArray() && $property->isNavigation()) {
+                foreach ($data[$name] as $key => $value) {
+                    $this->{$property->adder()}($this->cast($value, $property), $key);
+                }
+            } else {
+                $this->{$property->setter()}($this->cast($data[$name], $property));
+            }
+        }
     }
     
     /**
