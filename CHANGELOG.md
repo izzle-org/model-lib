@@ -1,3 +1,7 @@
+0.5.0
+-----
+- Changed serialized datetime format from ATOM to RFC3339_EXTENDED
+
 0.4.2
 -----
 - Added __toString method to model class
