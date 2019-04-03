@@ -73,7 +73,7 @@ class ModelTest extends TestCase
     {
         $json = json_encode($this->book);
         $data = json_decode($json, true);
-        $this->assertEquals('2019-03-20T08:30:31+00:00', $data['created_at']);
+        $this->assertEquals('2019-03-20T08:30:31.461+00:00', $data['created_at']);
     }
     
     public function testImplementsJson(): void
@@ -92,12 +92,12 @@ class ModelTest extends TestCase
         );
     }
     
-    public function testCanBeSerialized()
+    public function testCanBeSerialized(): void
     {
         $this->assertNotEmpty(serialize($this->book));
     }
     
-    public function testCanBeDeserialized()
+    public function testCanBeDeserialized(): void
     {
         $serialized = serialize($this->book);
         $book = unserialize($serialized);
@@ -106,6 +106,8 @@ class ModelTest extends TestCase
             Book::class,
             $book
         );
+        
+        $this->assertEquals($this->book, $book);
     
         $this->checkProperties($book);
     }
@@ -125,6 +127,11 @@ class ModelTest extends TestCase
                 new \DateTimeZone('UTC')
             ), new PropertyInfo('createdAt', \DateTime::class, null))
         );
+    }
+    
+    public function testCanCastableToString(): void
+    {
+        $this->assertNotEmpty((string) $this->book);
     }
     
     /**

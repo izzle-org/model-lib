@@ -19,7 +19,7 @@ abstract class Model implements \JsonSerializable, \Serializable
     /**
      * @var string - Can be set to null, to serialize \DateTime to object
      */
-    public static $serializedDateTimeFormat = \DateTime::ATOM;
+    public static $serializedDateTimeFormat = \DateTime::RFC3339_EXTENDED;
     
     /**
      * @param array|null $data
