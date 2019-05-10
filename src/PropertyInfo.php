@@ -2,6 +2,8 @@
 namespace Izzle\Model;
 
 use Izzle\Support\Str;
+use function sprintf;
+use function ucfirst;
 
 class PropertyInfo
 {
@@ -186,7 +188,7 @@ class PropertyInfo
             $name = preg_replace('/^is(.+)$/s','$1', $this->getName()); // Removing leading 'is' in name
         }
         
-        return \sprintf('%s%s', $prefix, \ucfirst(Str::camel($name)));
+        return sprintf('%s%s', $prefix, ucfirst(Str::camel($name)));
     }
     
     /**
@@ -194,7 +196,7 @@ class PropertyInfo
      */
     public function setter(): string
     {
-        return \sprintf('set%s', \ucfirst(Str::camel($this->getName())));
+        return sprintf('set%s', ucfirst(Str::camel($this->getName())));
     }
     
     /**
@@ -202,6 +204,6 @@ class PropertyInfo
      */
     public function adder(): string
     {
-        return \sprintf('add%s', \ucfirst(Str::camel(Str::singular($this->getName()))));
+        return sprintf('add%s', ucfirst(Str::camel(Str::singular($this->getName()))));
     }
 }

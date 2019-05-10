@@ -1,9 +1,12 @@
 <?php
 namespace Izzle\Tests;
 
+use DateTime;
 use Izzle\Model\Model;
 use Izzle\Model\PropertyInfo;
+use JsonSerializable;
 use PHPUnit\Framework\TestCase;
+use Serializable;
 
 class ModelTest extends TestCase
 {
@@ -79,7 +82,7 @@ class ModelTest extends TestCase
     public function testImplementsJson(): void
     {
         $this->assertInstanceOf(
-            \JsonSerializable::class,
+            JsonSerializable::class,
             $this->book
         );
     }
@@ -87,7 +90,7 @@ class ModelTest extends TestCase
     public function testImplementsSerializable(): void
     {
         $this->assertInstanceOf(
-            \Serializable::class,
+            Serializable::class,
             $this->book
         );
     }
@@ -116,16 +119,16 @@ class ModelTest extends TestCase
     {
         $this->assertEquals(4, $this->book->cast('4', new PropertyInfo('foo', 'int', 0)));
         $this->assertEquals(
-            new \DateTime('2019-01-29T07:57:47.664+00:00'),
-            $this->book->cast('2019-01-29T07:57:47.664+00:00', new PropertyInfo('createdAt', \DateTime::class, null))
+            new DateTime('2019-01-29T07:57:47.664+00:00'),
+            $this->book->cast('2019-01-29T07:57:47.664+00:00', new PropertyInfo('createdAt', DateTime::class, null))
         );
     
         $this->assertEquals(
-            new \DateTime('2019-01-29T07:57:47.664+00:00'),
-            $this->book->cast(new \DateTime(
+            new DateTime('2019-01-29T07:57:47.664+00:00'),
+            $this->book->cast(new DateTime(
                 '2019-01-29T07:57:47.664',
                 new \DateTimeZone('UTC')
-            ), new PropertyInfo('createdAt', \DateTime::class, null))
+            ), new PropertyInfo('createdAt', DateTime::class, null))
         );
     }
     

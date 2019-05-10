@@ -1,6 +1,10 @@
 <?php
 namespace Izzle\Tests;
 
+use DateTime;
+use DateTimeZone;
+use Exception;
+use function is_string;
 use Izzle\Model\Model;
 use Izzle\Model\PropertyCollection;
 use Izzle\Model\PropertyInfo;
@@ -37,7 +41,7 @@ class Book extends Model
     protected $currentPage;
     
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     protected $createdAt;
     
@@ -153,26 +157,26 @@ class Book extends Model
     }
     
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
     
     /**
-     * @param \DateTime|string|null $createdAt
+     * @param DateTime|string|null $createdAt
      * @return Book
-     * @throws \Exception
+     * @throws Exception
      */
-    public function setCreatedAt(?\DateTime $createdAt): Book
+    public function setCreatedAt(?DateTime $createdAt): Book
     {
         if ($createdAt === null) {
             return $this;
         }
     
-        if (\is_string($createdAt)) {
-            $createdAt = (new \DateTime($createdAt))->setTimezone(new \DateTimeZone('UTC'));
+        if (is_string($createdAt)) {
+            $createdAt = (new DateTime($createdAt))->setTimezone(new DateTimeZone('UTC'));
         }
     
         $this->checkDate($createdAt);
@@ -192,7 +196,7 @@ class Book extends Model
             new PropertyInfo('stockLevel', 'int', 0),
             new PropertyInfo('pages', Page::class, [], true, true),
             new PropertyInfo('currentPage', Page::class, null, true),
-            new PropertyInfo('createdAt', \DateTime::class, null)
+            new PropertyInfo('createdAt', DateTime::class, null)
         ]);
     }
 }

@@ -1,7 +1,12 @@
 <?php
 namespace Izzle\Model;
 
-class PropertyCollection implements \JsonSerializable, \Countable
+use function array_values;
+use Countable;
+use InvalidArgumentException;
+use JsonSerializable;
+
+class PropertyCollection implements JsonSerializable, Countable
 {
     /**
      * @var PropertyInfo[]
@@ -31,13 +36,13 @@ class PropertyCollection implements \JsonSerializable, \Countable
     /**
      * @param array $properties
      * @return PropertyCollection
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function addProperties(array $properties): PropertyCollection
     {
         foreach ($properties as $property) {
             if (!($property instanceof PropertyInfo)) {
-                throw new \InvalidArgumentException('Values of properties must be of type PropertyInfo');
+                throw new InvalidArgumentException('Values of properties must be of type PropertyInfo');
             }
             
             $this->container[$property->getName()] = $property;
@@ -60,14 +65,14 @@ class PropertyCollection implements \JsonSerializable, \Countable
     /**
      * @param array $properties
      * @return PropertyCollection
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setProperties(array $properties): PropertyCollection
     {
         $this->container = [];
         foreach ($properties as $property) {
             if (!($property instanceof PropertyInfo)) {
-                throw new \InvalidArgumentException('Array must contain only PropertyInfo objects');
+                throw new InvalidArgumentException('Array must contain only PropertyInfo objects');
             }
             
             $this->addProperty($property);
@@ -115,6 +120,6 @@ class PropertyCollection implements \JsonSerializable, \Countable
      */
     public function toArray(): array
     {
-        return \array_values($this->container);
+        return array_values($this->container);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace Izzle\Tests;
 
+use DateTime;
 use PHPUnit\Framework\TestCase;
 use Izzle\Model\PropertyInfo;
 
@@ -15,7 +16,7 @@ class PropertyInfoTest extends TestCase
     
         $this->assertInstanceOf(
             PropertyInfo::class,
-            new PropertyInfo('createdAt', \DateTime::class, new \DateTime('now',  new \DateTimeZone('UTC')))
+            new PropertyInfo('createdAt', DateTime::class, new DateTime('now',  new \DateTimeZone('UTC')))
         );
     }
     
