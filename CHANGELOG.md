@@ -1,3 +1,7 @@
+0.5.1
+-----
+- Fixed some Warnings
+
 0.5.0
 -----
 - Changed serialized datetime format from ATOM to RFC3339_EXTENDED

@@ -1,6 +1,7 @@
 <?php
 namespace Izzle\Tests;
 
+use JsonSerializable;
 use PHPUnit\Framework\TestCase;
 use Izzle\Model\PropertyCollection;
 use Izzle\Model\PropertyInfo;
@@ -38,7 +39,7 @@ class PropertyCollectionTest extends TestCase
     public function testImplementsJson(): void
     {
         $this->assertInstanceOf(
-            \JsonSerializable::class,
+            JsonSerializable::class,
             new PropertyCollection()
         );
     }

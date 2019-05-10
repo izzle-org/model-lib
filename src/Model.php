@@ -1,10 +1,18 @@
 <?php
 namespace Izzle\Model;
 
+use DateTime;
+use DateTimeZone;
+use InvalidArgumentException;
+use function is_array;
+use function is_string;
 use Izzle\Model\Exceptions\UnserializeException;
 use Izzle\Support\Str;
+use JsonException;
+use JsonSerializable;
+use Serializable;
 
-abstract class Model implements \JsonSerializable, \Serializable
+abstract class Model implements JsonSerializable, Serializable
 {
     /**
      * @var PropertyCollection
@@ -17,9 +25,9 @@ abstract class Model implements \JsonSerializable, \Serializable
     public static $serializeWithSnakeKeys = true;
     
     /**
-     * @var string - Can be set to null, to serialize \DateTime to object
+     * @var string - Can be set to null, to serialize DateTime to object
      */
-    public static $serializedDateTimeFormat = \DateTime::RFC3339_EXTENDED;
+    public static $serializedDateTimeFormat = DateTime::RFC3339_EXTENDED;
     
     /**
      * @param array|null $data
@@ -63,10 +71,10 @@ abstract class Model implements \JsonSerializable, \Serializable
             }
             
             $class = $property->getType();
-            return \is_array($value) ? new $class($value) : new $class();
+            return is_array($value) ? new $class($value) : new $class();
         }
         
-        $cast = function ($value, PropertyInfo $property) {
+        $cast = static function ($value, PropertyInfo $property) {
             switch ($property->getType()) {
                 case 'boolean':
                 case 'bool':
@@ -83,8 +91,8 @@ abstract class Model implements \JsonSerializable, \Serializable
                     return (double) $value;
                 case 'string':
                     return (string) $value;
-                case \DateTime::class:
-                    return \is_string($value) ? (new \DateTime($value))->setTimezone(new \DateTimeZone('UTC')) : $value;
+                case DateTime::class:
+                    return is_string($value) ? (new DateTime($value))->setTimezone(new DateTimeZone('UTC')) : $value;
                 case 'mixed':
                     return $value;
             }
@@ -92,7 +100,7 @@ abstract class Model implements \JsonSerializable, \Serializable
             return $value;
         };
         
-        if (\is_array($value) && !$property->isNavigation() && $property->isArray()) {
+        if (is_array($value) && !$property->isNavigation() && $property->isArray()) {
             foreach ($value as &$v) {
                 if (!($v instanceof self)) {
                     $v = $cast($v, $property);
@@ -130,7 +138,7 @@ abstract class Model implements \JsonSerializable, \Serializable
      * @param string $serialized
      * @throws UnserializeException
      */
-    public function unserialize($serialized)
+    public function unserialize($serialized): void
     {
         $data = unserialize($serialized, [true]);
         if ($data === false) {
@@ -157,8 +165,8 @@ abstract class Model implements \JsonSerializable, \Serializable
                 $property->getName();
             
             // DateTime Format
-            if (self::$serializedDateTimeFormat !== null && $property->getType() === \DateTime::class) {
-                /** @var \DateTime $dateTime */
+            if (self::$serializedDateTimeFormat !== null && $property->getType() === DateTime::class) {
+                /** @var DateTime $dateTime */
                 $dateTime = $this->{$property->getter()}();
                 $data[$key] = $dateTime ? $dateTime->format(self::$serializedDateTimeFormat) : null;
             } else {
@@ -171,14 +179,14 @@ abstract class Model implements \JsonSerializable, \Serializable
     
     /**
      * @return string
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function __toString()
     {
         /** @var string $str */
         $str = json_encode($this);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new \JsonException(json_last_error_msg(). json_last_error());
+            throw new JsonException(json_last_error_msg(). json_last_error());
         }
         
         return $str;
@@ -205,7 +213,7 @@ abstract class Model implements \JsonSerializable, \Serializable
                 }
             }
         
-            if (\is_array($data[$name]) && $property->isArray() && $property->isNavigation()) {
+            if (is_array($data[$name]) && $property->isArray() && $property->isNavigation()) {
                 foreach ($data[$name] as $key => $value) {
                     $this->{$property->adder()}($this->cast($value, $property), $key);
                 }
@@ -216,14 +224,14 @@ abstract class Model implements \JsonSerializable, \Serializable
     }
     
     /**
-     * @param \DateTime $date
+     * @param DateTime $date
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    protected function checkDate(\DateTime $date): void
+    protected function checkDate(DateTime $date): void
     {
         if ($date->getOffset() !== 0) {
-            throw new \InvalidArgumentException('Timezone must be UTC+0');
+            throw new InvalidArgumentException('Timezone must be UTC+0');
         }
     }
 }
