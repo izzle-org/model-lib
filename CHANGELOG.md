@@ -1,3 +1,7 @@
+0.5.2
+-----
+- Added case insensitive property name support
+
 0.5.1
 -----
 - Fixed some Warnings

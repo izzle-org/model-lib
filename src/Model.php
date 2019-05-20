@@ -202,14 +202,17 @@ abstract class Model implements JsonSerializable, Serializable
         }
         
         foreach ($this->properties()->toArray() as $property) {
-            $name = $property->getName();
+            $name = $property->getName(); // Case insesitive
         
             /** @var PropertyInfo $property */
             if (!isset($data[$name])) {
                 $name = Str::snake($property->getName());
             
                 if (!isset($data[$name])) {
-                    continue;
+                    $name = strtolower($property->getName());
+                    if (!isset($data[$name])) {
+                        continue;
+                    }
                 }
             }
         
