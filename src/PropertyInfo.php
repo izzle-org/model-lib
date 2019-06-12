@@ -185,7 +185,7 @@ class PropertyInfo
         $name = $this->getName();
         if ($this->type === 'bool') {
             $prefix = 'is';
-            $name = preg_replace('/^is(.+)$/s','$1', $this->getName()); // Removing leading 'is' in name
+            $name = preg_replace('/^is(.+)$/s', '$1', $this->getName()); // Removing leading 'is' in name
         }
         
         return sprintf('%s%s', $prefix, ucfirst(Str::camel($name)));
