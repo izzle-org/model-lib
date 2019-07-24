@@ -1,4 +1,4 @@
-Izzle Model Library and Classes
+Izzle Model Library
 
 1) Installing
 -------------

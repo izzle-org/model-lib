@@ -144,7 +144,7 @@ abstract class Model implements JsonSerializable, Serializable
         if ($data === false) {
             throw new UnserializeException(sprintf('Could not unserialize data from %s', get_class($this)));
         }
-        
+    
         $this->loadData($data);
     }
     
@@ -163,6 +163,21 @@ abstract class Model implements JsonSerializable, Serializable
             $key = self::$serializeWithSnakeKeys ?
                 Str::snake($property->getName()) :
                 $property->getName();
+    
+            if ($property->isNavigation()) {
+                if ($property->isArray()) {
+                    /** @var Model $model */
+                    foreach ($this->{$property->getter()}() as $model) {
+                        $data[$key][] =  $model === null ? $model : $model->toArray();
+                    }
+                } else {
+                    /** @var Model $model */
+                    $model = $this->{$property->getter()}();
+                    $data[$key] = $model === null ? $model : $model->toArray();
+                }
+                
+                continue;
+            }
             
             // DateTime Format
             if (self::$serializedDateTimeFormat !== null && $property->getType() === DateTime::class) {

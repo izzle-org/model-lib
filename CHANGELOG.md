@@ -1,3 +1,7 @@
+0.6.0
+-----
+- Fixed a bug in toArray method
+
 0.5.2
 -----
 - Added case insensitive property name support
