@@ -47,15 +47,20 @@ class ModelTest extends TestCase
     
     public function testCanBeConvertedToArray(): void
     {
+        $bookData = $this->book->toArray();
         $this->assertIsArray(
-            $this->book->toArray()
+            $bookData
         );
         
         $data = json_decode(file_get_contents(__DIR__ . '/Mocks/book_one.json'), true);
         
         foreach ($data as $key => $value) {
-            $this->assertArrayHasKey($key, $this->book->toArray());
+            $this->assertArrayHasKey($key, $bookData);
         }
+        
+        $this->assertIsArray($bookData['pages']);
+        $this->assertIsArray($bookData['pages'][0]);
+        $this->assertEquals(1, $bookData['pages'][0]['page']);
     }
     
     public function testSnakeCaseKeysCanBeDisabled(): void
