@@ -1,9 +1,11 @@
 <?php
 namespace Izzle\Model;
 
+use ArrayAccess;
 use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
+use Izzle\Model\Traits\ObjectToArrayAccess;
 use function is_array;
 use function is_string;
 use Izzle\Model\Exceptions\UnserializeException;
@@ -12,8 +14,10 @@ use JsonException;
 use JsonSerializable;
 use Serializable;
 
-abstract class Model implements JsonSerializable, Serializable
+abstract class Model implements JsonSerializable, Serializable, ArrayAccess
 {
+    use ObjectToArrayAccess;
+    
     /**
      * @var PropertyCollection
      */

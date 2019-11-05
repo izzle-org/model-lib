@@ -1,3 +1,7 @@
+0.7.0
+-----
+- Implemented ArrayAccess Interface to Model
+
 0.6.0
 -----
 - Fixed a bug in toArray method
