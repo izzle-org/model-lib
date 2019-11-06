@@ -1,3 +1,7 @@
+0.7.1
+-----
+- Fixed missing Trait Class
+
 0.7.0
 -----
 - Implemented ArrayAccess Interface to Model
