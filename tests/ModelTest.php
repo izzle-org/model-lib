@@ -154,6 +154,17 @@ class ModelTest extends TestCase
         $this->assertNull($this->book['name']);
     }
     
+    public function testCanInstatiateIncompleteModel(): void
+    {
+        $product = new Product([
+            'id' => 'foobar',
+            'description' => 'Test'
+        ]);
+        
+        $this->assertInstanceOf(Product::class, $product);
+        $this->assertEmpty($product->getDescription());
+    }
+    
     /**
      * @param Book $book
      */
