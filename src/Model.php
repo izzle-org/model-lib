@@ -164,6 +164,10 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
                 continue;
             }
             
+            if (!is_callable([$this, $property->getter()])) {
+                continue;
+            }
+            
             $key = self::$serializeWithSnakeKeys ?
                 Str::snake($property->getName()) :
                 $property->getName();
@@ -239,7 +243,7 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
                 foreach ($data[$name] as $key => $value) {
                     $this->{$property->adder()}($this->cast($value, $property), $key);
                 }
-            } else {
+            } elseif (is_callable([$this, $property->setter()])) {
                 $this->{$property->setter()}($this->cast($data[$name], $property));
             }
         }

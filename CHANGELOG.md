@@ -1,3 +1,7 @@
+0.7.2
+-----
+- Optional getter and setter have been added
+
 0.7.1
 -----
 - Fixed missing Trait Class
