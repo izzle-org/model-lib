@@ -47,20 +47,35 @@ class ModelTest extends TestCase
     
     public function testCanBeConvertedToArray(): void
     {
+        $check = static function (array $data, TestCase $phpunit) {
+            $phpunit->assertIsArray(
+                $data
+            );
+    
+            $data = json_decode(file_get_contents(__DIR__ . '/Mocks/book_one.json'), true);
+    
+            foreach ($data as $key => $value) {
+                $phpunit->assertArrayHasKey($key, $data);
+            }
+    
+            $phpunit->assertIsArray($data['pages']);
+            $phpunit->assertIsArray($data['pages'][0]);
+            $phpunit->assertEquals(1, $data['pages'][0]['page']);
+        };
+        
         $bookData = $this->book->toArray();
-        $this->assertIsArray(
-            $bookData
-        );
+        $check($bookData, $this);
         
-        $data = json_decode(file_get_contents(__DIR__ . '/Mocks/book_one.json'), true);
-        
-        foreach ($data as $key => $value) {
-            $this->assertArrayHasKey($key, $bookData);
+        // Also with array of array?
+        $pages = [];
+        foreach ($this->book->getPages() as $page) {
+            $pages[] = $page->toArray();
         }
+    
+        $this->book->setPages($pages);
         
-        $this->assertIsArray($bookData['pages']);
-        $this->assertIsArray($bookData['pages'][0]);
-        $this->assertEquals(1, $bookData['pages'][0]['page']);
+        $bookData = $this->book->toArray();
+        $check($bookData, $this);
     }
     
     public function testSnakeCaseKeysCanBeDisabled(): void

@@ -1,3 +1,7 @@
+0.7.3
+-----
+- Added additional toArray check
+
 0.7.2
 -----
 - Optional getter and setter have been added
