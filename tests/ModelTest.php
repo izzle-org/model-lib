@@ -76,6 +76,13 @@ class ModelTest extends TestCase
         
         $bookData = $this->book->toArray();
         $check($bookData, $this);
+        
+        // Also with empty Array?
+        $this->book->setPages([]);
+        $bookData = $this->book->toArray();
+        
+        $this->assertArrayHasKey('pages', $bookData);
+        $this->assertCount(0, $bookData['pages']);
     }
     
     public function testSnakeCaseKeysCanBeDisabled(): void
