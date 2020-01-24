@@ -1,3 +1,7 @@
+0.8.0
+-----
+- Fixed missing property on empty Arrays
+
 0.7.3
 -----
 - Added additional toArray check

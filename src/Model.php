@@ -174,6 +174,8 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
     
             if ($property->isNavigation()) {
                 if ($property->isArray()) {
+                    $data[$key] = [];
+                    
                     /** @var Model $model */
                     foreach ($this->{$property->getter()}() as $model) {
                         $data[$key][] = ($model instanceof self) ? $model->toArray() : $model;
