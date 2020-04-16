@@ -1,3 +1,7 @@
+0.8.1 (unreleased)
+-----
+- Fixed __toString Method
+
 0.8.0
 -----
 - Fixed missing property on empty Arrays
