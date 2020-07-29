@@ -1,3 +1,8 @@
+0.9.0
+-----
+- Fixed assoc arrays
+- Fixed __toString Method
+
 0.8.0
 -----
 - Fixed missing property on empty Arrays

@@ -177,8 +177,8 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
                     $data[$key] = [];
                     
                     /** @var Model $model */
-                    foreach ($this->{$property->getter()}() as $model) {
-                        $data[$key][] = ($model instanceof self) ? $model->toArray() : $model;
+                    foreach ($this->{$property->getter()}() as $index => $model) {
+                        $data[$key][$index] = ($model instanceof self) ? $model->toArray() : $model;
                     }
                 } else {
                     /** @var Model $model */
@@ -204,14 +204,13 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
     
     /**
      * @return string
-     * @throws JsonException
      */
     public function __toString()
     {
         /** @var string $str */
         $str = json_encode($this);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new JsonException(json_last_error_msg(). json_last_error());
+            return '';
         }
         
         return $str;
