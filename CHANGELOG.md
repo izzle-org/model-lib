@@ -1,5 +1,6 @@
-0.8.1 (unreleased)
+0.9.0
 -----
+- Fixed assoc arrays
 - Fixed __toString Method
 
 0.8.0

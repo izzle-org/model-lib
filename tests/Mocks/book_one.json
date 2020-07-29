@@ -12,6 +12,13 @@
             "chapter": "greetings"
         }
     ],
+    "i18ns": {
+       "en_GB": {
+           "name": "Moby Dick",
+           "description": "Moby-Dick; or, The Whale is an 1851 novel by American writer Herman Melville. The book is the sailor Ishmael's narrative of the obsessive quest of Ahab, captain of the whaling ship Pequod, for revenge on Moby Dick, the giant white sperm whale that on the ship's previous voyage bit off Ahab's leg at the knee. A contribution to the literature of the American Renaissance, Moby-Dick was published to mixed reviews, was a commercial failure, and was out of print at the time of the author's death in 1891.",
+           "locale": "en_GB"
+        }
+    },
     "current_page": {
         "page": 1,
         "chapter": "intro"

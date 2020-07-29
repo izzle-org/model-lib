@@ -41,6 +41,11 @@ class Book extends Model
     protected $currentPage;
     
     /**
+     * @var BookI18n[]
+     */
+    protected $i18ns = [];
+    
+    /**
      * @var DateTime
      */
     protected $createdAt;
@@ -123,10 +128,10 @@ class Book extends Model
     
     /**
      * @param Page $page
-     * @param string|null $key
+     * @param mixed $key
      * @return Book
      */
-    public function addPage(Page $page, string $key = null): Book
+    public function addPage(Page $page, $key = null): Book
     {
         if ($key === null) {
             $this->pages[] = $page;
@@ -152,6 +157,41 @@ class Book extends Model
     public function setCurrentPage(Page $currentPage): Book
     {
         $this->currentPage = $currentPage;
+        
+        return $this;
+    }
+    
+    /**
+     * @return BookI18n[]
+     */
+    public function getI18ns(): array
+    {
+        return $this->i18ns;
+    }
+    
+    /**
+     * @param BookI18n[] $i18ns
+     * @return Book
+     */
+    public function setI18ns(array $i18ns): Book
+    {
+        $this->i18ns = $i18ns;
+        
+        return $this;
+    }
+    
+    /**
+     * @param BookI18n $i18n
+     * @param mixed $key
+     * @return Book
+     */
+    public function addI18n(BookI18n $i18n, $key = null): Book
+    {
+        if ($key === null) {
+            $this->i18ns[] = $i18n;
+        } else {
+            $this->i18ns[$key] = $i18n;
+        }
         
         return $this;
     }
@@ -196,6 +236,7 @@ class Book extends Model
             new PropertyInfo('stockLevel', 'int', 0),
             new PropertyInfo('pages', Page::class, [], true, true),
             new PropertyInfo('currentPage', Page::class, null, true),
+            new PropertyInfo('i18ns', BookI18n::class, [], true, true),
             new PropertyInfo('createdAt', DateTime::class, null)
         ]);
     }

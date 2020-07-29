@@ -34,7 +34,7 @@ class ModelTest extends TestCase
     
     public function testCanGetProperties(): void
     {
-        $this->assertCount(6, $this->book->properties()->toArray());
+        $this->assertCount(7, $this->book->properties()->toArray());
     }
     
     public function testCanGetPropertyByName(): void
@@ -61,6 +61,14 @@ class ModelTest extends TestCase
             $phpunit->assertIsArray($data['pages']);
             $phpunit->assertIsArray($data['pages'][0]);
             $phpunit->assertEquals(1, $data['pages'][0]['page']);
+            
+            // Assoc Test
+            $phpunit->assertIsArray($data['i18ns']);
+            $phpunit->assertArrayHasKey('en_GB', $data['i18ns']);
+            $phpunit->assertIsArray($data['i18ns']['en_GB']);
+            $phpunit->assertArrayNotHasKey(0, $data['i18ns']);
+            $phpunit->assertArrayHasKey('name', $data['i18ns']['en_GB']);
+            $phpunit->assertEquals('Moby Dick', $data['i18ns']['en_GB']['name']);
         };
         
         $bookData = $this->book->toArray();
@@ -92,6 +100,7 @@ class ModelTest extends TestCase
         $this->assertArrayHasKey('stockLevel', $data);
         $this->assertArrayNotHasKey('stock_level', $data);
         $this->assertArrayHasKey('pages', $data);
+        $this->assertArrayHasKey('i18ns', $data);
         $this->assertArrayHasKey('currentPage', $data);
         $this->assertArrayNotHasKey('current_page', $data);
         $this->assertArrayNotHasKey('created_at', $data);
@@ -197,8 +206,12 @@ class ModelTest extends TestCase
         $this->assertEquals($book->getStockLevel(), 4);
         $this->assertIsArray($book->getPages());
         $this->assertCount(2, $book->getPages());
+        $this->assertIsArray($book->getI18ns());
+        $this->assertCount(1, $book->getI18ns());
         
-        foreach ($book->getPages() as $page) {
+        // Page
+        foreach ($book->getPages() as $index => $page) {
+            $this->assertIsNumeric($index);
             $this->assertInstanceOf(
                 Page::class,
                 $page
@@ -212,5 +225,14 @@ class ModelTest extends TestCase
     
         $this->assertEquals($book->getCurrentPage()->getPage(), 1);
         $this->assertEquals($book->getCurrentPage()->getChapter(), 'intro');
+    
+        // I18ns
+        foreach ($book->getI18ns() as $index => $i18n) {
+            $this->assertEquals('en_GB', $index);
+            $this->assertInstanceOf(
+                BookI18n::class,
+                $i18n
+            );
+        }
     }
 }
