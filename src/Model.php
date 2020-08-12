@@ -158,7 +158,7 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
     public function toArray(): array
     {
         $data = [];
-        foreach ($this->properties()->toArray() as $property) {
+        foreach ($this->properties() as $property) {
             /** @var PropertyInfo $property */
             if ($property->isHidden()) {
                 continue;
