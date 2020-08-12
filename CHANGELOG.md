@@ -1,3 +1,7 @@
+0.9.1 (unreleased)
+-----
+- Implemented IteratorAggregate on PropertyCollection
+
 0.9.0
 -----
 - Fixed assoc arrays

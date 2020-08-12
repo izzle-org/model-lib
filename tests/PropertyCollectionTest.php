@@ -1,6 +1,7 @@
 <?php
 namespace Izzle\Tests;
 
+use IteratorAggregate;
 use JsonSerializable;
 use PHPUnit\Framework\TestCase;
 use Izzle\Model\PropertyCollection;
@@ -41,15 +42,6 @@ class PropertyCollectionTest extends TestCase
         $this->assertInstanceOf(
             JsonSerializable::class,
             new PropertyCollection()
-        );
-    }
-    
-    public function testCanBeConvertedToJson(): void
-    {
-        $this->assertJson(
-            json_encode(new PropertyCollection([
-                new PropertyInfo('name')
-            ]))
         );
     }
     
@@ -97,6 +89,28 @@ class PropertyCollectionTest extends TestCase
         ]);
         
         $this->assertCount(2, $collection->toArray());
+    }
+    
+    public function testCanBeConvertedToJson(): void
+    {
+        $this->assertJson(
+            json_encode(new PropertyCollection([
+                new PropertyInfo('name')
+            ]))
+        );
+    }
+    
+    public function testImplementsIteratorAggregate(): void
+    {
+        $collection = new PropertyCollection([
+            new PropertyInfo('valid', 'bool', false)
+        ]);
+        
+        $this->assertInstanceOf(IteratorAggregate::class, $collection);
+        
+        foreach ($collection as $info) {
+            $this->assertInstanceOf(PropertyInfo::class, $info);
+        }
     }
     
     public function testCanRemoveProperty(): void

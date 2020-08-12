@@ -1,12 +1,14 @@
 <?php
 namespace Izzle\Model;
 
+use ArrayIterator;
+use IteratorAggregate;
 use function array_values;
 use Countable;
 use InvalidArgumentException;
 use JsonSerializable;
 
-class PropertyCollection implements JsonSerializable, Countable
+class PropertyCollection implements JsonSerializable, Countable, IteratorAggregate
 {
     /**
      * @var PropertyInfo[]
@@ -121,5 +123,13 @@ class PropertyCollection implements JsonSerializable, Countable
     public function toArray(): array
     {
         return array_values($this->container);
+    }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->container);
     }
 }
