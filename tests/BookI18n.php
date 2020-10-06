@@ -14,17 +14,17 @@ class BookI18n extends Model
     /**
      * @var string
      */
-    protected $name = '';
+    protected string $name = '';
+    
+    /**
+     * @var string|null
+     */
+    protected ?string $description = null;
     
     /**
      * @var string
      */
-    protected $description = '';
-    
-    /**
-     * @var string
-     */
-    protected $locale = 'de_DE';
+    protected string $locale = 'de_DE';
     
     /**
      * @return string
@@ -46,18 +46,18 @@ class BookI18n extends Model
     }
     
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
     
     /**
-     * @param string $description
+     * @param string|null $description
      * @return BookI18n
      */
-    public function setDescription(string $description): BookI18n
+    public function setDescription(?string $description): BookI18n
     {
         $this->description = $description;
         

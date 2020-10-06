@@ -4,13 +4,13 @@ namespace Izzle\Model;
 use ArrayAccess;
 use DateTime;
 use DateTimeZone;
+use Exception;
 use InvalidArgumentException;
 use Izzle\Model\Traits\ObjectToArrayAccess;
 use function is_array;
 use function is_string;
 use Izzle\Model\Exceptions\UnserializeException;
 use Izzle\Support\Str;
-use JsonException;
 use JsonSerializable;
 use Serializable;
 
@@ -19,19 +19,19 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
     use ObjectToArrayAccess;
     
     /**
-     * @var PropertyCollection
+     * @var PropertyCollection|null
      */
-    private $propertyCollection;
+    private ?PropertyCollection $propertyCollection = null;
     
     /**
      * @var bool
      */
-    public static $serializeWithSnakeKeys = true;
+    public static bool $serializeWithSnakeKeys = true;
     
     /**
      * @var string - Can be set to null, to serialize DateTime to object
      */
-    public static $serializedDateTimeFormat = DateTime::RFC3339_EXTENDED;
+    public static string $serializedDateTimeFormat = DateTime::RFC3339_EXTENDED;
     
     /**
      * @param array|null $data
@@ -69,6 +69,10 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
      */
     public function cast($value, PropertyInfo $property)
     {
+        if ($value === null) {
+            return $value;
+        }
+        
         if ($property->isNavigation()) {
             if ($value instanceof self) {
                 return $value;
@@ -207,9 +211,10 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
      */
     public function __toString()
     {
-        /** @var string $str */
-        $str = json_encode($this);
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        try {
+            /** @var string $str */
+            $str = json_encode($this, JSON_THROW_ON_ERROR, 512);
+        } catch (Exception $e) {
             return '';
         }
         
