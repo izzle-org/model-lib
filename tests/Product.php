@@ -14,12 +14,17 @@ class Product extends Model
     /**
      * @var string
      */
-    protected $id;
+    protected string $id;
     
     /**
      * @var string
      */
-    protected $description = '';
+    protected string $meta;
+    
+    /**
+     * @var string
+     */
+    protected string $description = '';
     
     /**
      * @param string $id
@@ -28,6 +33,25 @@ class Product extends Model
     public function setId(string $id): Product
     {
         $this->id = $id;
+        
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getMeta(): string
+    {
+        return $this->meta;
+    }
+    
+    /**
+     * @param string $meta
+     * @return Product
+     */
+    public function setMeta(string $meta): Product
+    {
+        $this->meta = $meta;
         
         return $this;
     }
@@ -47,6 +71,7 @@ class Product extends Model
     {
         return new PropertyCollection([
             new PropertyInfo('id'),
+            new PropertyInfo('meta'),
             new PropertyInfo('description')
         ]);
     }
