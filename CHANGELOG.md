@@ -1,5 +1,9 @@
+0.10.1
+------
+- No need for PHP 7.4. Back to PHP >= 7.1
+
 0.10.0
------
+------
 - Pushed to PHP >= 7.4
 - Implemented IteratorAggregate on PropertyCollection
 - Changed Cast method. Null values will not be casted

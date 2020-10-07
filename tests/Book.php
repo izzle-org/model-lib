@@ -18,37 +18,37 @@ class Book extends Model
     /**
      * @var int
      */
-    protected int $id = 0;
+    protected $id = 0;
     
     /**
      * @var string
      */
-    protected string $name = '';
+    protected $name = '';
     
     /**
      * @var int
      */
-    protected int $stockLevel = 0;
+    protected $stockLevel = 0;
     
     /**
      * @var Page[]
      */
-    protected array $pages = [];
+    protected $pages = [];
     
     /**
      * @var Page
      */
-    protected Page $currentPage;
+    protected $currentPage;
     
     /**
      * @var BookI18n[]
      */
-    protected array $i18ns = [];
+    protected $i18ns = [];
     
     /**
      * @var DateTime|null
      */
-    protected ?DateTime $createdAt;
+    protected $createdAt;
     
     /**
      * @return int

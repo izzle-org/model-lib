@@ -13,7 +13,7 @@ class PropertyCollection implements JsonSerializable, Countable, IteratorAggrega
     /**
      * @var PropertyInfo[]
      */
-    private array $container = [];
+    private $container = [];
     
     /**
      * PropertyCollection constructor.
