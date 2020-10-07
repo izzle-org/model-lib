@@ -21,17 +21,17 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
     /**
      * @var PropertyCollection|null
      */
-    private ?PropertyCollection $propertyCollection = null;
+    private $propertyCollection = null;
     
     /**
      * @var bool
      */
-    public static bool $serializeWithSnakeKeys = true;
+    public static $serializeWithSnakeKeys = true;
     
     /**
      * @var string - Can be set to null, to serialize DateTime to object
      */
-    public static string $serializedDateTimeFormat = DateTime::RFC3339_EXTENDED;
+    public static $serializedDateTimeFormat = DateTime::RFC3339_EXTENDED;
     
     /**
      * @param array|null $data

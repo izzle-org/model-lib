@@ -10,12 +10,12 @@ class PropertyInfo
     /**
      * @var string
      */
-    protected string $name = '';
+    protected $name = '';
     
     /**
      * @var string
      */
-    protected string $type = 'string';
+    protected $type = 'string';
     
     /**
      * @var mixed
@@ -25,17 +25,17 @@ class PropertyInfo
     /**
      * @var bool
      */
-    protected bool $navigation = false;
+    protected $navigation = false;
     
     /**
      * @var bool
      */
-    protected bool $array = false;
+    protected $array = false;
     
     /**
      * @var bool
      */
-    protected bool $hidden = false;
+    protected $hidden = false;
     
     /**
      * PropertyInfo constructor.
