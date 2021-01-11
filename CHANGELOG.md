@@ -1,3 +1,7 @@
+0.10.2
+------
+- Added PHP 8.0 compatibility
+
 0.10.1
 ------
 - No need for PHP 7.4. Back to PHP >= 7.1
