@@ -14,12 +14,12 @@ class Page extends Model
     /**
      * @var int
      */
-    protected $page = 0;
+    protected int $page = 0;
     
     /**
      * @var string
      */
-    protected $chapter = '';
+    protected string $chapter = '';
     
     /**
      * @return int
