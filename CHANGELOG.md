@@ -1,3 +1,7 @@
+0.11.0
+------
+- Added PHP 8.1 compatibility
+
 0.10.2
 ------
 - Added PHP 8.0 compatibility
