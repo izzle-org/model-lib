@@ -14,17 +14,17 @@ class BookI18n extends Model
     /**
      * @var string
      */
-    protected $name = '';
+    protected string $name = '';
     
     /**
      * @var string|null
      */
-    protected $description = null;
+    protected ?string $description = null;
     
     /**
      * @var string
      */
-    protected $locale = 'de_DE';
+    protected string $locale = 'de_DE';
     
     /**
      * @return string

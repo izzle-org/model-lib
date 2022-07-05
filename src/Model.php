@@ -21,20 +21,21 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
     /**
      * @var PropertyCollection|null
      */
-    private $propertyCollection = null;
+    private ?PropertyCollection $propertyCollection = null;
     
     /**
      * @var bool
      */
-    public static $serializeWithSnakeKeys = true;
+    public static bool $serializeWithSnakeKeys = true;
     
     /**
      * @var string - Can be set to null, to serialize DateTime to object
      */
-    public static $serializedDateTimeFormat = DateTime::RFC3339_EXTENDED;
+    public static string $serializedDateTimeFormat = DateTime::RFC3339_EXTENDED;
     
     /**
      * @param array|null $data
+     * @throws Exception
      */
     public function __construct(array $data = null)
     {
@@ -66,6 +67,7 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
      * @param mixed $value
      * @param PropertyInfo $property
      * @return mixed
+     * @throws Exception
      */
     public function cast($value, PropertyInfo $property)
     {
@@ -129,9 +131,27 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->toArray();
+    }
+    
+    /**
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return $this->toArray();
+    }
+    
+    /**
+     * @param array $data
+     * @return void
+     * @throws Exception
+     */
+    public function __unserialize(array $data): void
+    {
+        $this->loadData($data);
     }
     
     /**
@@ -143,17 +163,18 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
     }
     
     /**
-     * @param string $serialized
+     * @param string $data
      * @throws UnserializeException
+     * @throws Exception
      */
-    public function unserialize($serialized): void
+    public function unserialize($data): void
     {
-        $data = unserialize($serialized, [true]);
-        if ($data === false) {
+        $d = unserialize($data, [true]);
+        if ($d === false) {
             throw new UnserializeException(sprintf('Could not unserialize data from %s', get_class($this)));
         }
     
-        $this->loadData($data);
+        $this->loadData($d);
     }
     
     /**
@@ -213,7 +234,7 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
     {
         try {
             /** @var string $str */
-            $str = json_encode($this, JSON_THROW_ON_ERROR, 512);
+            $str = json_encode($this, JSON_THROW_ON_ERROR);
         } catch (Exception $e) {
             return '';
         }
@@ -223,10 +244,11 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
     
     /**
      * @param array|null $data
+     * @throws Exception
      */
-    protected function loadData(array $data = null)
+    protected function loadData(array $data = null): void
     {
-        if ($data === null || empty($data)) {
+        if (empty($data)) {
             return;
         }
         

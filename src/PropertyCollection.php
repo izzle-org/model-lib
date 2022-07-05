@@ -13,7 +13,7 @@ class PropertyCollection implements JsonSerializable, Countable, IteratorAggrega
     /**
      * @var PropertyInfo[]
      */
-    private $container = [];
+    private array $container = [];
     
     /**
      * PropertyCollection constructor.
@@ -112,7 +112,7 @@ class PropertyCollection implements JsonSerializable, Countable, IteratorAggrega
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->toArray();
     }
@@ -128,7 +128,7 @@ class PropertyCollection implements JsonSerializable, Countable, IteratorAggrega
     /**
      * @inheritDoc
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->container);
     }

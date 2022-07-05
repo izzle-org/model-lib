@@ -14,17 +14,17 @@ class Product extends Model
     /**
      * @var string
      */
-    protected $id;
+    protected string $id;
     
     /**
      * @var string
      */
-    protected $meta;
+    protected string $meta;
     
     /**
      * @var string
      */
-    protected $description = '';
+    protected string $description = '';
     
     /**
      * @param string $id

@@ -2,6 +2,7 @@
 namespace Izzle\Tests;
 
 use DateTime;
+use DateTimeZone;
 use Izzle\Model\Model;
 use Izzle\Model\PropertyInfo;
 use JsonSerializable;
@@ -115,7 +116,7 @@ class ModelTest extends TestCase
     
     public function testCanBeSerializedWithDateTimeFormats(): void
     {
-        $json = json_encode($this->book, JSON_THROW_ON_ERROR, 512);
+        $json = json_encode($this->book, JSON_THROW_ON_ERROR);
         $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
         $this->assertEquals('2019-03-20T08:30:31.461+00:00', $data['created_at']);
     }
@@ -168,7 +169,7 @@ class ModelTest extends TestCase
             new DateTime('2019-01-29T07:57:47.664+00:00'),
             $this->book->cast(new DateTime(
                 '2019-01-29T07:57:47.664',
-                new \DateTimeZone('UTC')
+                new DateTimeZone('UTC')
             ), new PropertyInfo('createdAt', DateTime::class, null))
         );
     }
