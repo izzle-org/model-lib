@@ -112,7 +112,8 @@ class PropertyCollection implements JsonSerializable, Countable, IteratorAggrega
     /**
      * @inheritDoc
      */
-    public function jsonSerialize(): mixed
+    #[\ReturnTypeWillChange]
+    public function jsonSerialize()
     {
         return $this->toArray();
     }

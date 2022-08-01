@@ -131,7 +131,8 @@ abstract class Model implements JsonSerializable, Serializable, ArrayAccess
     /**
      * @inheritDoc
      */
-    public function jsonSerialize(): mixed
+    #[\ReturnTypeWillChange]
+    public function jsonSerialize()
     {
         return $this->toArray();
     }

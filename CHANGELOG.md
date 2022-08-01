@@ -1,3 +1,7 @@
+0.11.1
+------
+- Fixed mixed return value in PHP 7.4 (with ReturnTypeWillChange Attribute)
+
 0.11.0
 ------
 - Added PHP 8.1 compatibility
