@@ -4,3 +4,6 @@ composer.lock
 report
 cghooks.lock
 .php_cs.cache
+phpunit.xml.bak
+.php-cs-fixer.cache
+.phpunit.result.cache
