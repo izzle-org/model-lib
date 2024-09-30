@@ -1,3 +1,7 @@
+1.0.1
+------
+- Fixed deprecated return types and calls
+
 0.11.2
 ------
 - Fixed deprecated return types and calls
