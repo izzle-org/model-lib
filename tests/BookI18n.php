@@ -1,4 +1,5 @@
 <?php
+
 namespace Izzle\Tests;
 
 use Izzle\Model\Model;
@@ -15,17 +16,17 @@ class BookI18n extends Model
      * @var string
      */
     protected string $name = '';
-    
+
     /**
      * @var string|null
      */
     protected ?string $description = null;
-    
+
     /**
      * @var string
      */
     protected string $locale = 'de_DE';
-    
+
     /**
      * @return string
      */
@@ -33,7 +34,7 @@ class BookI18n extends Model
     {
         return $this->name;
     }
-    
+
     /**
      * @param string $name
      * @return BookI18n
@@ -41,10 +42,10 @@ class BookI18n extends Model
     public function setName(string $name): BookI18n
     {
         $this->name = $name;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string|null
      */
@@ -52,7 +53,7 @@ class BookI18n extends Model
     {
         return $this->description;
     }
-    
+
     /**
      * @param string|null $description
      * @return BookI18n
@@ -60,10 +61,10 @@ class BookI18n extends Model
     public function setDescription(?string $description): BookI18n
     {
         $this->description = $description;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -71,7 +72,7 @@ class BookI18n extends Model
     {
         return $this->locale;
     }
-    
+
     /**
      * @param string $locale
      * @return BookI18n
@@ -79,10 +80,10 @@ class BookI18n extends Model
     public function setLocale(string $locale): BookI18n
     {
         $this->locale = $locale;
-        
+
         return $this;
     }
-    
+
     /**
      * @inheritDoc
      */

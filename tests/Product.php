@@ -1,4 +1,5 @@
 <?php
+
 namespace Izzle\Tests;
 
 use Izzle\Model\Model;
@@ -15,17 +16,17 @@ class Product extends Model
      * @var string
      */
     protected string $id;
-    
+
     /**
      * @var string
      */
     protected string $meta;
-    
+
     /**
      * @var string
      */
     protected string $description = '';
-    
+
     /**
      * @param string $id
      * @return Product
@@ -33,10 +34,10 @@ class Product extends Model
     public function setId(string $id): Product
     {
         $this->id = $id;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -44,7 +45,7 @@ class Product extends Model
     {
         return $this->meta;
     }
-    
+
     /**
      * @param string $meta
      * @return Product
@@ -52,10 +53,10 @@ class Product extends Model
     public function setMeta(string $meta): Product
     {
         $this->meta = $meta;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -63,7 +64,7 @@ class Product extends Model
     {
         return $this->description;
     }
-    
+
     /**
      * @return PropertyCollection
      */

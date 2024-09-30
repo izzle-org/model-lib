@@ -1,4 +1,5 @@
 <?php
+
 namespace Izzle\Tests;
 
 use Izzle\Model\Model;
@@ -15,12 +16,12 @@ class Page extends Model
      * @var int
      */
     protected int $page = 0;
-    
+
     /**
      * @var string
      */
     protected string $chapter = '';
-    
+
     /**
      * @return int
      */
@@ -28,7 +29,7 @@ class Page extends Model
     {
         return $this->page;
     }
-    
+
     /**
      * @param int $page
      * @return Page
@@ -36,10 +37,10 @@ class Page extends Model
     public function setPage(int $page): Page
     {
         $this->page = $page;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -47,7 +48,7 @@ class Page extends Model
     {
         return $this->chapter;
     }
-    
+
     /**
      * @param string $chapter
      * @return Page
@@ -55,10 +56,10 @@ class Page extends Model
     public function setChapter(string $chapter): Page
     {
         $this->chapter = $chapter;
-        
+
         return $this;
     }
-    
+
     /**
      * @return PropertyCollection
      */
