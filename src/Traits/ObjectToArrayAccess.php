@@ -1,6 +1,8 @@
 <?php
 namespace Izzle\Model\Traits;
 
+use ReturnTypeWillChange;
+
 trait ObjectToArrayAccess
 {
     /**
@@ -15,6 +17,7 @@ trait ObjectToArrayAccess
      * The return value will be casted to boolean if non-boolean was returned.
      * @since 5.0.0
      */
+    #[ReturnTypeWillChange]
     public function offsetExists($offset): bool
     {
         return isset($this->{$offset});
@@ -29,7 +32,7 @@ trait ObjectToArrayAccess
      * @return mixed Can return all value types.
      * @since 5.0.0
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->{$offset};
@@ -47,6 +50,7 @@ trait ObjectToArrayAccess
      * @return void
      * @since 5.0.0
      */
+    #[ReturnTypeWillChange]
     public function offsetSet($offset, $value): void
     {
         $this->{$offset} = $value;
@@ -61,6 +65,7 @@ trait ObjectToArrayAccess
      * @return void
      * @since 5.0.0
      */
+    #[ReturnTypeWillChange]
     public function offsetUnset($offset): void
     {
         $this->{$offset} = null;

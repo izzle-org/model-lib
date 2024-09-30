@@ -1,10 +1,11 @@
 <?php
+
 namespace Izzle\Tests;
 
 use DateTime;
 use DateTimeZone;
-use PHPUnit\Framework\TestCase;
 use Izzle\Model\PropertyInfo;
+use PHPUnit\Framework\TestCase;
 
 class PropertyInfoTest extends TestCase
 {
@@ -14,13 +15,13 @@ class PropertyInfoTest extends TestCase
             PropertyInfo::class,
             new PropertyInfo('name')
         );
-    
+
         $this->assertInstanceOf(
             PropertyInfo::class,
             new PropertyInfo('createdAt', DateTime::class, new DateTime('now', new DateTimeZone('UTC')))
         );
     }
-    
+
     public function testCanGetGetterMethod(): void
     {
         $this->assertEquals((new PropertyInfo('name'))->getter(), 'getName');
@@ -29,7 +30,7 @@ class PropertyInfoTest extends TestCase
         $this->assertEquals((new PropertyInfo('isIsbn', 'bool', false))->getter(), 'isIsbn');
         $this->assertEquals((new PropertyInfo('isbn', 'string', ''))->getter(), 'getIsbn');
     }
-    
+
     public function testCanGetSetterMethod(): void
     {
         $this->assertEquals((new PropertyInfo('name'))->setter(), 'setName');
@@ -38,7 +39,7 @@ class PropertyInfoTest extends TestCase
         $this->assertEquals((new PropertyInfo('isIsbn', 'bool', false))->setter(), 'setIsIsbn');
         $this->assertEquals((new PropertyInfo('isbn', 'string', ''))->setter(), 'setIsbn');
     }
-    
+
     public function testCanGetAdderMethod(): void
     {
         $this->assertEquals((new PropertyInfo('names', 'string', [], false, true))->adder(), 'addName');

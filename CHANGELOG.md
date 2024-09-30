@@ -1,3 +1,7 @@
+0.11.2
+------
+- Fixed deprecated return types and calls
+
 0.11.1
 ------
 - Fixed mixed return value in PHP 7.4 (with ReturnTypeWillChange Attribute)

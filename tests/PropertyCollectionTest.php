@@ -1,11 +1,12 @@
 <?php
+
 namespace Izzle\Tests;
 
 use IteratorAggregate;
-use JsonSerializable;
-use PHPUnit\Framework\TestCase;
 use Izzle\Model\PropertyCollection;
 use Izzle\Model\PropertyInfo;
+use JsonSerializable;
+use PHPUnit\Framework\TestCase;
 
 class PropertyCollectionTest extends TestCase
 {
@@ -19,7 +20,7 @@ class PropertyCollectionTest extends TestCase
             ])
         );
     }
-    
+
     public function testCanBeCreatedWithoutProperties(): void
     {
         $this->assertInstanceOf(
@@ -27,7 +28,7 @@ class PropertyCollectionTest extends TestCase
             new PropertyCollection()
         );
     }
-    
+
     public function testCanBeConvertedToArray(): void
     {
         $this->assertIsArray(
@@ -36,7 +37,7 @@ class PropertyCollectionTest extends TestCase
             ]))->toArray()
         );
     }
-    
+
     public function testImplementsJson(): void
     {
         $this->assertInstanceOf(
@@ -44,53 +45,53 @@ class PropertyCollectionTest extends TestCase
             new PropertyCollection()
         );
     }
-    
+
     public function testCanAddProperty(): void
     {
         $collection = new PropertyCollection([
             new PropertyInfo('value', 'int', 0)
         ]);
-        
+
         $collection->addProperty(new PropertyInfo('name'));
-        
+
         $this->assertCount(2, $collection->toArray());
     }
-    
+
     public function testCanAddProperties(): void
     {
         $collection = new PropertyCollection([
             new PropertyInfo('value', 'int', 0)
         ]);
-        
+
         $collection->addProperties([
             new PropertyInfo('name'),
             new PropertyInfo('valid', 'bool', false)
         ]);
-        
+
         $this->assertCount(3, $collection->toArray());
-        
+
         $collection->addProperties([
             new PropertyInfo('name'),
             new PropertyInfo('price', 'float', 0.0)
         ]);
-        
+
         $this->assertCount(4, $collection->toArray());
     }
-    
+
     public function testCanSetProperties(): void
     {
         $collection = new PropertyCollection([
             new PropertyInfo('value', 'int', 0)
         ]);
-        
+
         $collection->setProperties([
             new PropertyInfo('name'),
             new PropertyInfo('valid', 'bool', false)
         ]);
-        
+
         $this->assertCount(2, $collection->toArray());
     }
-    
+
     public function testCanBeConvertedToJson(): void
     {
         $this->assertJson(
@@ -99,66 +100,66 @@ class PropertyCollectionTest extends TestCase
             ]))
         );
     }
-    
+
     public function testImplementsIteratorAggregate(): void
     {
         $collection = new PropertyCollection([
             new PropertyInfo('valid', 'bool', false)
         ]);
-        
+
         $this->assertInstanceOf(IteratorAggregate::class, $collection);
-        
+
         foreach ($collection as $info) {
             $this->assertInstanceOf(PropertyInfo::class, $info);
         }
     }
-    
+
     public function testCanRemoveProperty(): void
     {
         $property = new PropertyInfo('name');
         $collection = new PropertyCollection([
             new PropertyInfo('value', 'int', 0)
         ]);
-        
+
         $collection->addProperty($property);
-        
+
         $this->assertCount(2, $collection->toArray());
-        
+
         $collection->removeProperty($property);
-        
+
         $this->assertCount(1, $collection->toArray());
     }
-    
+
     public function testCanTellIfPropertyExists(): void
     {
         $property = new PropertyInfo('name');
         $collection = new PropertyCollection([
             $property
         ]);
-        
+
         $this->assertTrue($collection->hasProperty($property->getName()));
     }
-    
+
     public function testCanGetPropertyByName(): void
     {
         $property = new PropertyInfo('name');
         $collection = new PropertyCollection([
             $property
         ]);
-        
+
         $this->assertEquals(
             $property,
             $collection->getProperty($property->getName())
         );
     }
-    
+
     public function testCanGetPropertiesCount(): void
     {
         $collection = new PropertyCollection([
             new PropertyInfo('name'),
             new PropertyInfo('valid', 'bool', false)
         ]);
-        
+
         $this->assertEquals(2, $collection->count());
     }
 }

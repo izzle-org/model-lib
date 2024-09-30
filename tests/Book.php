@@ -1,13 +1,14 @@
 <?php
+
 namespace Izzle\Tests;
 
 use DateTime;
 use DateTimeZone;
 use Exception;
-use function is_string;
 use Izzle\Model\Model;
 use Izzle\Model\PropertyCollection;
 use Izzle\Model\PropertyInfo;
+use function is_string;
 
 /**
  * Class Book
@@ -19,37 +20,37 @@ class Book extends Model
      * @var int
      */
     protected int $id = 0;
-    
+
     /**
      * @var string
      */
     protected string $name = '';
-    
+
     /**
      * @var int
      */
     protected int $stockLevel = 0;
-    
+
     /**
      * @var Page[]
      */
     protected array $pages = [];
-    
+
     /**
      * @var Page
      */
     protected Page $currentPage;
-    
+
     /**
      * @var BookI18n[]
      */
     protected array $i18ns = [];
-    
+
     /**
      * @var DateTime|null
      */
     protected ?DateTime $createdAt;
-    
+
     /**
      * @return int
      */
@@ -57,7 +58,7 @@ class Book extends Model
     {
         return $this->id;
     }
-    
+
     /**
      * @param int $id
      * @return Book
@@ -65,10 +66,10 @@ class Book extends Model
     public function setId(int $id): Book
     {
         $this->id = $id;
-        
+
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -76,7 +77,7 @@ class Book extends Model
     {
         return $this->name;
     }
-    
+
     /**
      * @param string $name
      * @return Book
@@ -84,10 +85,10 @@ class Book extends Model
     public function setName(string $name): Book
     {
         $this->name = $name;
-        
+
         return $this;
     }
-    
+
     /**
      * @return int
      */
@@ -95,7 +96,7 @@ class Book extends Model
     {
         return $this->stockLevel;
     }
-    
+
     /**
      * @param int $stockLevel
      * @return Book
@@ -103,10 +104,10 @@ class Book extends Model
     public function setStockLevel(int $stockLevel): Book
     {
         $this->stockLevel = $stockLevel;
-        
+
         return $this;
     }
-    
+
     /**
      * @return Page[]
      */
@@ -114,7 +115,7 @@ class Book extends Model
     {
         return $this->pages;
     }
-    
+
     /**
      * @param Page[] $pages
      * @return Book
@@ -122,10 +123,10 @@ class Book extends Model
     public function setPages(array $pages): Book
     {
         $this->pages = $pages;
-        
+
         return $this;
     }
-    
+
     /**
      * @param Page $page
      * @param mixed $key
@@ -138,10 +139,10 @@ class Book extends Model
         } else {
             $this->pages[$key] = $page;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * @return Page|null
      */
@@ -149,7 +150,7 @@ class Book extends Model
     {
         return $this->currentPage;
     }
-    
+
     /**
      * @param Page $currentPage
      * @return Book
@@ -157,10 +158,10 @@ class Book extends Model
     public function setCurrentPage(Page $currentPage): Book
     {
         $this->currentPage = $currentPage;
-        
+
         return $this;
     }
-    
+
     /**
      * @return BookI18n[]
      */
@@ -168,7 +169,7 @@ class Book extends Model
     {
         return $this->i18ns;
     }
-    
+
     /**
      * @param BookI18n[] $i18ns
      * @return Book
@@ -176,10 +177,10 @@ class Book extends Model
     public function setI18ns(array $i18ns): Book
     {
         $this->i18ns = $i18ns;
-        
+
         return $this;
     }
-    
+
     /**
      * @param BookI18n $i18n
      * @param mixed $key
@@ -192,10 +193,10 @@ class Book extends Model
         } else {
             $this->i18ns[$key] = $i18n;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * @return DateTime|null
      */
@@ -203,7 +204,7 @@ class Book extends Model
     {
         return $this->createdAt;
     }
-    
+
     /**
      * @param DateTime|string|null $createdAt
      * @return Book
@@ -214,17 +215,17 @@ class Book extends Model
         if ($createdAt === null) {
             return $this;
         }
-    
+
         if (is_string($createdAt)) {
             $createdAt = (new DateTime($createdAt))->setTimezone(new DateTimeZone('UTC'));
         }
-    
+
         $this->checkDate($createdAt);
         $this->createdAt = $createdAt;
-        
+
         return $this;
     }
-    
+
     /**
      * @return PropertyCollection
      */
